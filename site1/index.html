@@ -1,0 +1,789 @@
+# Design for Site - 1
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FundaClass Academy - Empowering Students through Group Tuition</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            scroll-behavior: smooth;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 0;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #2563eb;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #2563eb;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 120px 0 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="20" cy="20" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="40" r="0.8" fill="rgba(255,255,255,0.1)"/><circle cx="40" cy="80" r="1.2" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>') repeat;
+            opacity: 0.3;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero-tagline {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: #ffffff;
+            color: #2563eb;
+            padding: 15px 35px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #2563eb;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: #2563eb;
+            border-radius: 2px;
+        }
+
+        /* About Section */
+        .about {
+            background: #f8fafc;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            margin-bottom: 4rem;
+        }
+
+        .about-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .about-image {
+            text-align: center;
+            padding: 2rem;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .teacher-profiles {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .teacher-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .teacher-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .teacher-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: white;
+            font-weight: bold;
+        }
+
+        /* Group Tuitions Section */
+        .tuitions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .tuition-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .tuition-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .tuition-header {
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .tuition-header h3 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .tuition-content {
+            padding: 2rem;
+        }
+
+        .subject-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 1rem 0;
+        }
+
+        .subject-tag {
+            background: #e0f2fe;
+            color: #0277bd;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        /* Benefits Section */
+        .benefits {
+            background: #f8fafc;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .benefit-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .benefit-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: white;
+        }
+
+        /* Contact Section */
+        .contact {
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            color: white;
+        }
+
+        .contact .section-title {
+            color: white;
+        }
+
+        .contact .section-title::after {
+            background: white;
+        }
+
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            margin-top: 3rem;
+        }
+
+        .contact-info {
+            font-size: 1.1rem;
+        }
+
+        .contact-item {
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .contact-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .contact-form {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.9);
+            font-size: 1rem;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .submit-btn {
+            background: white;
+            color: #2563eb;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Footer */
+        .footer {
+            background: #1e293b;
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-tagline {
+                font-size: 1.1rem;
+            }
+
+            .about-content,
+            .contact-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .tuitions-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+
+        /* Scroll animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-container">
+                <a href="#home" class="logo">FundaClass Academy</a>
+                <ul class="nav-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#tuitions">Tuitions</a></li>
+                    <li><a href="#benefits">Benefits</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content fade-in">
+                <h1>FundaClass Academy</h1>
+                <p class="hero-tagline">Empowering Students through Excellence in Group Tuition - Building Strong Foundations in Science and Mathematics</p>
+                <a href="#contact" class="cta-button">Get Started Today</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section about">
+        <div class="container">
+            <h2 class="section-title fade-in">About FundaClass Academy</h2>
+            <div class="about-content">
+                <div class="about-text fade-in">
+                    <h3>Our Mission</h3>
+                    <p>At FundaClass Academy, we believe that every student has the potential to excel in science and mathematics. Our mission is to provide high-quality group tuition that makes learning engaging, accessible, and effective.</p>
+                    
+                    <h3 style="margin-top: 2rem;">Our Vision</h3>
+                    <p>To be the leading academy that transforms students' understanding of fundamental concepts, preparing them for academic success and building confidence for future challenges.</p>
+                    
+                    <h3 style="margin-top: 2rem;">Our Values</h3>
+                    <p>Excellence in education, personalized attention, innovative teaching methods, and fostering a supportive learning environment where every student can thrive.</p>
+                </div>
+                <div class="about-image fade-in">
+                    <div style="font-size: 6rem; color: #2563eb; margin-bottom: 1rem;">🎓</div>
+                    <h3>Quality Education</h3>
+                    <p>Committed to academic excellence and student success</p>
+                </div>
+            </div>
+
+            <h3 style="text-align: center; font-size: 2rem; margin-bottom: 2rem; color: #2563eb;">Meet Our Expert Faculty</h3>
+            <div class="teacher-profiles">
+                <div class="teacher-card fade-in">
+                    <div class="teacher-avatar">MP</div>
+                    <h4>Prof. Madhav Patel</h4>
+                    <p><strong>Mathematics & Physics Expert</strong></p>
+                    <p>15+ years of teaching experience with M.Sc. in Physics and Mathematics. Specialized in making complex concepts simple and engaging for students.</p>
+                </div>
+                <div class="teacher-card fade-in">
+                    <div class="teacher-avatar">RS</div>
+                    <h4>Dr. Riya Sharma</h4>
+                    <p><strong>Chemistry & Biology Specialist</strong></p>
+                    <p>Ph.D. in Chemistry with 12+ years of experience. Known for innovative teaching methods and helping students excel in competitive exams.</p>
+                </div>
+                <div class="teacher-card fade-in">
+                    <div class="teacher-avatar">AK</div>
+                    <h4>Prof. Amit Kumar</h4>
+                    <p><strong>Advanced Mathematics</strong></p>
+                    <p>M.Sc. Mathematics with 10+ years of experience in coaching students for board exams and competitive entrance tests.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Group Tuitions Section -->
+    <section id="tuitions" class="section">
+        <div class="container">
+            <h2 class="section-title fade-in">Our Group Tuition Programs</h2>
+            <div class="tuitions-grid">
+                <div class="tuition-card fade-in">
+                    <div class="tuition-header">
+                        <h3>Classes 8-10</h3>
+                        <p>Foundation Building Program</p>
+                    </div>
+                    <div class="tuition-content">
+                        <h4>Subjects Taught:</h4>
+                        <div class="subject-list">
+                            <span class="subject-tag">Science</span>
+                            <span class="subject-tag">Mathematics</span>
+                            <span class="subject-tag">Physics</span>
+                            <span class="subject-tag">Chemistry</span>
+                            <span class="subject-tag">Biology</span>
+                        </div>
+                        
+                        <h4 style="margin-top: 1.5rem;">Course Highlights:</h4>
+                        <ul style="margin-top: 1rem; padding-left: 1.5rem;">
+                            <li>Complete NCERT curriculum coverage</li>
+                            <li>Interactive problem-solving sessions</li>
+                            <li>Regular tests and assessments</li>
+                            <li>Concept clarity through practical examples</li>
+                            <li>Board exam preparation strategies</li>
+                        </ul>
+                        
+                        <h4 style="margin-top: 1.5rem;">Teaching Methodology:</h4>
+                        <p>Visual learning aids, hands-on experiments, group discussions, and personalized doubt clearing sessions.</p>
+                    </div>
+                </div>
+
+                <div class="tuition-card fade-in">
+                    <div class="tuition-header">
+                        <h3>Classes 11-12</h3>
+                        <p>Advanced Learning Program</p>
+                    </div>
+                    <div class="tuition-content">
+                        <h4>Subjects Taught:</h4>
+                        <div class="subject-list">
+                            <span class="subject-tag">Physics</span>
+                            <span class="subject-tag">Chemistry</span>
+                            <span class="subject-tag">Mathematics</span>
+                        </div>
+                        
+                        <h4 style="margin-top: 1.5rem;">Course Highlights:</h4>
+                        <ul style="margin-top: 1rem; padding-left: 1.5rem;">
+                            <li>Advanced concept development</li>
+                            <li>JEE/NEET preparation integrated approach</li>
+                            <li>Complex problem-solving techniques</li>
+                            <li>Regular mock tests and analysis</li>
+                            <li>Board + Competitive exam dual focus</li>
+                        </ul>
+                        
+                        <h4 style="margin-top: 1.5rem;">Teaching Methodology:</h4>
+                        <p>Advanced mathematical modeling, laboratory-based learning, competitive exam strategies, and intensive practice sessions.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section id="benefits" class="section benefits">
+        <div class="container">
+            <h2 class="section-title fade-in">Why Choose FundaClass Academy</h2>
+            <div class="benefits-grid">
+                <div class="benefit-card fade-in">
+                    <div class="benefit-icon">👨‍🏫</div>
+                    <h4>Experienced Faculty</h4>
+                    <p>Learn from highly qualified teachers with years of experience in their respective subjects and proven track records of student success.</p>
+                </div>
+                <div class="benefit-card fade-in">
+                    <div class="benefit-icon">👥</div>
+                    <h4>Small Batch Sizes</h4>
+                    <p>Optimal batch sizes ensure personalized attention for every student, allowing for better interaction and customized learning approaches.</p>
+                </div>
+                <div class="benefit-card fade-in">
+                    <div class="benefit-icon">🎯</div>
+                    <h4>Interactive Learning</h4>
+                    <p>Engaging teaching methods including practical demonstrations, group activities, and hands-on experiments to make learning enjoyable and effective.</p>
+                </div>
+                <div class="benefit-card fade-in">
+                    <div class="benefit-icon">📊</div>
+                    <h4>Regular Assessments</h4>
+                    <p>Continuous evaluation through tests, quizzes, and assignments with detailed feedback to track progress and identify areas for improvement.</p>
+                </div>
+                <div class="benefit-card fade-in">
+                    <div class="benefit-icon">🏆</div>
+                    <h4>Proven Results</h4>
+                    <p>Consistent track record of excellent board exam results and successful preparation for competitive entrance exams like JEE and NEET.</p>
+                </div>
+                <div class="benefit-card fade-in">
+                    <div class="benefit-icon">💡</div>
+                    <h4>Concept Clarity</h4>
+                    <p>Focus on building strong fundamentals and conceptual understanding rather than rote learning, ensuring long-term academic success.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section contact">
+        <div class="container">
+            <h2 class="section-title fade-in">Contact Us</h2>
+            <div class="contact-content">
+                <div class="contact-info fade-in">
+                    <h3 style="margin-bottom: 2rem; font-size: 1.8rem;">Get in Touch</h3>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">📞</div>
+                        <div>
+                            <h4>Phone</h4>
+                            <p>+91 98765 43210</p>
+                            <p>+91 87654 32109</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">📧</div>
+                        <div>
+                            <h4>Email</h4>
+                            <p>info@fundaclassacademy.com</p>
+                            <p>admissions@fundaclassacademy.com</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">📍</div>
+                        <div>
+                            <h4>Address</h4>
+                            <p>123 Education Lane,<br>
+                            Knowledge Park, Sector 15,<br>
+                            Delhi - 110075</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">🕒</div>
+                        <div>
+                            <h4>Working Hours</h4>
+                            <p>Monday - Saturday: 9:00 AM - 8:00 PM<br>
+                            Sunday: 10:00 AM - 6:00 PM</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="contact-form fade-in">
+                    <h3 style="margin-bottom: 1.5rem;">Send us a Message</h3>
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="name">Full Name</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" name="phone" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="class">Class of Interest</label>
+                            <input type="text" id="class" name="class" placeholder="e.g., Class 10, Class 12" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" placeholder="Tell us about your requirements or any questions you have..." required></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 FundaClass Academy. All rights reserved. | Empowering Students Through Quality Education</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Fade in animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Contact form handling
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form data
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData);
+            
+            // Simple validation
+            if (!data.name || !data.email || !data.phone || !data.message) {
+                alert('Please fill in all required fields.');
+                return;
+            }
+            
+            // Simulate form submission
+            const submitBtn = this.querySelector('.submit-btn');
+            const originalText = submitBtn.textContent;
+            
+            submitBtn.textContent = 'Sending...';
+            submitBtn.disabled = true;
+            
+            setTimeout(() => {
+                alert('Thank you for your message! We will get back to you soon.');
+                this.reset();
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+            }, 2000);
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 100) {
+                navbar.style.background = 'rgba(255, 255, 255, 0.98)';
+                navbar.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.15)';
+            } else {
+                navbar.style.background = 'rgba(255, 255, 255, 0.95)';
+                navbar.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
+            }
+        });
+
+        // Initialize animations on page load
+        window.addEventListener('load', () => {
+            document.querySelector('.hero-content').classList.add('visible');
+        });
+    </script>
+</body>
+</html>
